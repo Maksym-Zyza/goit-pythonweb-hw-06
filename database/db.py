@@ -1,7 +1,6 @@
+from sqlalchemy import create_engine, text
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 load_dotenv()
 
@@ -10,11 +9,12 @@ password = os.getenv("PASSWORD")
 db_name = os.getenv("DB_NAME")
 domain = os.getenv("DOMAIN")
 
-#  f'postgresql://username:password@domain_name:port/database_name'
-
 url = f'postgresql://{username}:{password}@{domain}:5433/{db_name}'
+engine = create_engine(url, echo=True)
 
-# Create engine and session
-engine = create_engine(url, echo=False)
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
+try:
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT 1"))
+        print(result.fetchone())
+except Exception as e:
+    print("Connection error:", e)
