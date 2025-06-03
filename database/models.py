@@ -3,8 +3,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 
-from db import engine
-
 Base = declarative_base()
 
 
@@ -56,4 +54,3 @@ class Grade(Base):
     date_received = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     student = relationship("Student", back_populates="grades")
     subject = relationship("Subject", back_populates="grades")
-

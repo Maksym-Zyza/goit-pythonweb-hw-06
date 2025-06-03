@@ -9,7 +9,7 @@ password = os.getenv("PASSWORD")
 db_name = os.getenv("DB_NAME")
 domain = os.getenv("DOMAIN")
 
-url = f'postgresql://{username}:{password}@{domain}:5433/{db_name}'
+url = f"postgresql://{username}:{password}@{domain}:5433/{db_name}"
 engine = create_engine(url, echo=True)
 
 try:
